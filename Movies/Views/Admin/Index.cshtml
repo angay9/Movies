@@ -1,0 +1,35 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="container">
+        
+        <div class="row">
+        	<div class="col-md-4">
+        		<form action="@Url.Action("Login", "Admin")" method="post" class="form-horizontal">
+        			@Html.AntiForgeryToken()
+                    <div class="control-group"><label for="" class="control-label">Username</label><input type="text" required name="username" class="form-control"></div>
+        			<div class="control-group"><label for="" class="control-label">Password</label><input type="password" required name="password" class="form-control"></div>
+                    <br />
+                    <div class="control-group">
+                        <input type="submit" class="btn btn-primary" value="login">
+                    </div>
+        		</form>
+        	</div>
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+</body>
+</html>

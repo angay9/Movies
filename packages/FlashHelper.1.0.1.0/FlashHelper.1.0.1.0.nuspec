@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>FlashHelper</id>
+    <version>1.0.1.0</version>
+    <title>FlashHelper</title>
+    <authors>dan-waters</authors>
+    <owners>dan-waters</owners>
+    <projectUrl>http://github.com/dan-waters/FlashHelper</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Allows flash access of tempdata in controllers and views</description>
+    <summary>Adding a rails-like flash to .NET MVC</summary>
+    <releaseNotes>Adding support for Html within flash div</releaseNotes>
+    <copyright>Copyright 2014</copyright>
+    <tags>Flash MVC HtmlHelper</tags>
+    <dependencies>
+      <dependency id="Microsoft.AspNet.Mvc" version="4.0.20710.0" />
+    </dependencies>
+  </metadata>
+</package>

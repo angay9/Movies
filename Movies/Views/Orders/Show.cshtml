@@ -1,0 +1,40 @@
+﻿@model List<Movies.DB.Order>
+
+@{
+    ViewBag.Title = "Show";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Orders</h2>
+@if ((Model as List<Movies.DB.Order>).Count > 0)
+{
+    <table class="table">
+        <tr>
+            <th>Poster</th>
+            <th>
+                Movie Title
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <img class="poster" src="@item.Movie.Poster" alt="@item.Movie.Title" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Movie.Title)
+                </td>
+                <td>
+                    <a href="@Url.Action("Return", "Orders", new { id = @item.MovieId })" class="btn btn-info">Return</a>
+                </td>
+            </tr>
+        }
+    </table>
+}
+
+else
+{
+    <h3>No orders yet</h3>
+}

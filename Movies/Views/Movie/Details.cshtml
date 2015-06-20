@@ -1,0 +1,141 @@
+﻿@model Movies.DB.Movie
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>@Model.Title</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Year)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Year)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Released)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Released)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Runtime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Runtime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Director)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Director)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Writer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Writer)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Actors)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Actors)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Language)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Language)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Country)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Country)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Awards)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Awards)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Poster)
+        </dt>
+
+        <dd>
+            <img src="@Model.Poster" class="poster" alt="@Model.Title" />
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ImdbRating)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ImdbRating)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ImdbVotes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ImdbVotes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ImdbId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ImdbId)
+        </dd>
+    </dl>
+</div>
+<div>
+    <h3>What do others think about this movie?</h3>
+    <p>
+        @Html.Raw(
+            String.Join("<br/>", 
+                Model
+                    .Feedbacks
+                    .Select(f => 
+                        String.Format("User: <i>{0}</i>, Comment: <strong>{1}</strong>, Rating: <strong>{2}</strong>", f.AspNetUser.UserName, f.Comment, f.Rating)
+                    )
+                    .ToArray()
+                )
+        )
+    </p>
+</div>
