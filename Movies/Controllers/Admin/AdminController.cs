@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Movies.Services;
 
 namespace Movies.Controllers.Admin
 {
@@ -44,15 +45,16 @@ namespace Movies.Controllers.Admin
         public async Task<ActionResult> Login(string username, string password) 
         {
             var user = await UserManager.FindAsync(username, password);
-            if (user != null)// && user.Role == (int)UserRoles.Admin)
+            if (user != null && user.Role == (int)UserRoles.Admin)
             {
                 AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
                 var identity = await UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
                 AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = true }, identity);
-
+                this.FlashSuccess("Welcome!");
                 return RedirectToAction("Index", "Users");
             }
-            // Add flash error
+
+            this.FlashError("Invalid credentials.");
             return Redirect(Request.UrlReferrer.AbsoluteUri);
         }
 

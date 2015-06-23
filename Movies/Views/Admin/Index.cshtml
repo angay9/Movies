@@ -1,4 +1,4 @@
-﻿
+﻿@using Movies.Razor.Extensions
 @{
     Layout = null;
 }
@@ -14,7 +14,11 @@
 </head>
 <body>
     <div class="container">
-        
+        <div class="row">
+            <div class="col-md-12">
+                @Html.Flash()
+            </div>
+        </div>
         <div class="row">
         	<div class="col-md-4">
         		<form action="@Url.Action("Login", "Admin")" method="post" class="form-horizontal">

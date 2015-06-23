@@ -248,50 +248,50 @@
           <EntitySet Name="Movies1" EntityType="moviesModel.Movie" />
           <EntitySet Name="Orders" EntityType="moviesModel.Order" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id" Association="moviesModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id">
-            <End Role="AspNetUser" EntitySet="AspNetUsers" />
-            <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
+            <End EntitySet="AspNetUsers" Role="AspNetUser" />
+            <End EntitySet="AspNetUserClaims" Role="AspNetUserClaim" />
           </AssociationSet>
           <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="moviesModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
-            <End Role="AspNetUser" EntitySet="AspNetUsers" />
-            <End Role="AspNetUserLogin" EntitySet="AspNetUserLogins" />
+            <End EntitySet="AspNetUsers" Role="AspNetUser" />
+            <End EntitySet="AspNetUserLogins" Role="AspNetUserLogin" />
           </AssociationSet>
           <AssociationSet Name="FK__Feedback__UserId__412EB0B6" Association="moviesModel.FK__Feedback__UserId__412EB0B6">
-            <End Role="AspNetUser" EntitySet="AspNetUsers" />
-            <End Role="Feedback" EntitySet="Feedbacks" />
+            <End EntitySet="AspNetUsers" Role="AspNetUser" />
+            <End EntitySet="Feedbacks" Role="Feedback" />
           </AssociationSet>
           <AssociationSet Name="FK__Feedback__MovieI__4222D4EF" Association="moviesModel.FK__Feedback__MovieI__4222D4EF">
-            <End Role="Movy" EntitySet="Movies1" />
-            <End Role="Feedback" EntitySet="Feedbacks" />
+            <End EntitySet="Movies1" Role="Movy" />
+            <End EntitySet="Feedbacks" Role="Feedback" />
           </AssociationSet>
           <AssociationSet Name="AspNetUserRoles" Association="moviesModel.AspNetUserRoles">
-            <End Role="AspNetRole" EntitySet="AspNetRoles" />
-            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End EntitySet="AspNetRoles" Role="AspNetRole" />
+            <End EntitySet="AspNetUsers" Role="AspNetUser" />
           </AssociationSet>
           <AssociationSet Name="FK__Orders__UserId__628FA481" Association="moviesModel.FK__Orders__UserId__628FA481">
-            <End Role="AspNetUser" EntitySet="AspNetUsers" />
-            <End Role="Order" EntitySet="Orders" />
+            <End EntitySet="AspNetUsers" Role="AspNetUser" />
+            <End EntitySet="Orders" Role="Order" />
           </AssociationSet>
           <AssociationSet Name="FK__Orders__MovieId__619B8048" Association="moviesModel.FK__Orders__MovieId__619B8048">
-            <End Role="Movy" EntitySet="Movies1" />
-            <End Role="Order" EntitySet="Orders" />
+            <End EntitySet="Movies1" Role="Movy" />
+            <End EntitySet="Orders" Role="Order" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="AspNetRole">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Id" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="Name" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" Type="String" />
           <NavigationProperty Name="AspNetUsers" Relationship="moviesModel.AspNetUserRoles" FromRole="AspNetRole" ToRole="AspNetUser" />
         </EntityType>
         <EntityType Name="AspNetUserClaim">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="User_Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="ClaimType" MaxLength="Max" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="ClaimValue" MaxLength="Max" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="User_Id" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" Type="String" />
           <NavigationProperty Name="AspNetUser" Relationship="moviesModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id" FromRole="AspNetUserClaim" ToRole="AspNetUser" />
         </EntityType>
         <EntityType Name="AspNetUserLogin">
@@ -300,21 +300,21 @@
             <PropertyRef Name="LoginProvider" />
             <PropertyRef Name="ProviderKey" />
           </Key>
-          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="LoginProvider" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="ProviderKey" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" Type="String" />
           <NavigationProperty Name="AspNetUser" Relationship="moviesModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogin" ToRole="AspNetUser" />
         </EntityType>
         <EntityType Name="AspNetUser">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Id" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="UserName" MaxLength="Max" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="PasswordHash" MaxLength="Max" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="SecurityStamp" MaxLength="Max" FixedLength="false" Unicode="true" Type="String" />
           <Property Name="Role" Type="Int32" />
-          <Property Name="Discriminator" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Discriminator" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" Type="String" />
           <NavigationProperty Name="AspNetUserClaims" Relationship="moviesModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
           <NavigationProperty Name="AspNetUserLogins" Relationship="moviesModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
           <NavigationProperty Name="Feedbacks" Relationship="moviesModel.FK__Feedback__UserId__412EB0B6" FromRole="AspNetUser" ToRole="Feedback" />
@@ -325,10 +325,10 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="UserId" MaxLength="128" FixedLength="false" Unicode="true" Type="String" />
           <Property Name="MovieId" Type="Int32" />
-          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Comment" MaxLength="Max" FixedLength="false" Unicode="false" Type="String" />
           <Property Name="Rating" Type="Int32" />
           <NavigationProperty Name="AspNetUser" Relationship="moviesModel.FK__Feedback__UserId__412EB0B6" FromRole="Feedback" ToRole="AspNetUser" />
           <NavigationProperty Name="Movie" Relationship="moviesModel.FK__Feedback__MovieI__4222D4EF" FromRole="Feedback" ToRole="Movy" />
@@ -337,21 +337,21 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="Title" MaxLength="50" FixedLength="false" Unicode="false" Type="String" />
           <Property Name="Year" Type="Int32" />
-          <Property Name="Released" Type="DateTime" Precision="3" />
+          <Property Name="Released" Precision="3" Type="DateTime" />
           <Property Name="Runtime" Type="Int32" />
-          <Property Name="Director" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Writer" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Actors" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Language" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Country" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Awards" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Poster" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="ImdbRating" Type="Decimal" Precision="2" Scale="1" />
+          <Property Name="Director" MaxLength="100" FixedLength="false" Unicode="false" Type="String" />
+          <Property Name="Writer" MaxLength="100" FixedLength="false" Unicode="false" Type="String" />
+          <Property Name="Actors" MaxLength="Max" FixedLength="false" Unicode="false" Type="String" />
+          <Property Name="Language" MaxLength="20" FixedLength="false" Unicode="false" Type="String" />
+          <Property Name="Country" MaxLength="100" FixedLength="false" Unicode="false" Type="String" />
+          <Property Name="Awards" MaxLength="255" FixedLength="false" Unicode="false" Type="String" />
+          <Property Name="Poster" MaxLength="255" FixedLength="false" Unicode="false" Type="String" />
+          <Property Name="ImdbRating" Precision="2" Scale="1" Type="Decimal" />
           <Property Name="ImdbVotes" Type="Int32" />
-          <Property Name="ImdbId" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ImdbId" MaxLength="255" FixedLength="false" Unicode="false" Type="String" />
           <NavigationProperty Name="Feedbacks" Relationship="moviesModel.FK__Feedback__MovieI__4222D4EF" FromRole="Movy" ToRole="Feedback" />
           <NavigationProperty Name="Orders" Relationship="moviesModel.FK__Orders__MovieId__619B8048" FromRole="Movy" ToRole="Order" />
         </EntityType>
@@ -359,18 +359,18 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="UserId" MaxLength="128" FixedLength="false" Unicode="true" Type="String" />
           <Property Name="MovieId" Type="Int32" />
-          <Property Name="Returned" Type="Boolean" Nullable="false" />
+          <Property Name="Returned" Nullable="false" Type="Boolean" />
           <NavigationProperty Name="AspNetUser" Relationship="moviesModel.FK__Orders__UserId__628FA481" FromRole="Order" ToRole="AspNetUser" />
           <NavigationProperty Name="Movie" Relationship="moviesModel.FK__Orders__MovieId__619B8048" FromRole="Order" ToRole="Movy" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id">
-          <End Type="moviesModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+          <End Type="moviesModel.AspNetUser" Multiplicity="1" Role="AspNetUser">
             <OnDelete Action="Cascade" />
           </End>
-          <End Type="moviesModel.AspNetUserClaim" Role="AspNetUserClaim" Multiplicity="*" />
+          <End Type="moviesModel.AspNetUserClaim" Multiplicity="*" Role="AspNetUserClaim" />
           <ReferentialConstraint>
             <Principal Role="AspNetUser">
               <PropertyRef Name="Id" />
@@ -381,10 +381,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
-          <End Type="moviesModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+          <End Type="moviesModel.AspNetUser" Multiplicity="1" Role="AspNetUser">
             <OnDelete Action="Cascade" />
           </End>
-          <End Type="moviesModel.AspNetUserLogin" Role="AspNetUserLogin" Multiplicity="*" />
+          <End Type="moviesModel.AspNetUserLogin" Multiplicity="*" Role="AspNetUserLogin" />
           <ReferentialConstraint>
             <Principal Role="AspNetUser">
               <PropertyRef Name="Id" />
@@ -395,8 +395,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Feedback__UserId__412EB0B6">
-          <End Type="moviesModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
-          <End Type="moviesModel.Feedback" Role="Feedback" Multiplicity="*" />
+          <End Type="moviesModel.AspNetUser" Multiplicity="0..1" Role="AspNetUser" />
+          <End Type="moviesModel.Feedback" Multiplicity="*" Role="Feedback" />
           <ReferentialConstraint>
             <Principal Role="AspNetUser">
               <PropertyRef Name="Id" />
@@ -407,8 +407,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Feedback__MovieI__4222D4EF">
-          <End Type="moviesModel.Movie" Role="Movy" Multiplicity="0..1" />
-          <End Type="moviesModel.Feedback" Role="Feedback" Multiplicity="*" />
+          <End Type="moviesModel.Movie" Multiplicity="0..1" Role="Movy" />
+          <End Type="moviesModel.Feedback" Multiplicity="*" Role="Feedback" />
           <ReferentialConstraint>
             <Principal Role="Movy">
               <PropertyRef Name="Id" />
@@ -419,12 +419,12 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="AspNetUserRoles">
-          <End Type="moviesModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
-          <End Type="moviesModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+          <End Type="moviesModel.AspNetRole" Multiplicity="*" Role="AspNetRole" />
+          <End Type="moviesModel.AspNetUser" Multiplicity="*" Role="AspNetUser" />
         </Association>
         <Association Name="FK__Orders__UserId__628FA481">
-          <End Type="moviesModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
-          <End Type="moviesModel.Order" Role="Order" Multiplicity="*" />
+          <End Type="moviesModel.AspNetUser" Multiplicity="0..1" Role="AspNetUser" />
+          <End Type="moviesModel.Order" Multiplicity="*" Role="Order" />
           <ReferentialConstraint>
             <Principal Role="AspNetUser">
               <PropertyRef Name="Id" />
@@ -435,8 +435,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Orders__MovieId__619B8048">
-          <End Type="moviesModel.Movie" Role="Movy" Multiplicity="0..1" />
-          <End Type="moviesModel.Order" Role="Order" Multiplicity="*" />
+          <End Type="moviesModel.Movie" Multiplicity="0..1" Role="Movy" />
+          <End Type="moviesModel.Order" Multiplicity="*" Role="Order" />
           <ReferentialConstraint>
             <Principal Role="Movy">
               <PropertyRef Name="Id" />
