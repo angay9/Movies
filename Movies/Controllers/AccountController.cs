@@ -46,7 +46,7 @@ namespace Movies.Controllers
             if (ModelState.IsValid)
             {
                 var user = await UserManager.FindAsync(model.UserName, model.Password);
-                if (user != null && user.Role == (int)UserRoles.User)
+                if (user != null)// && user.Role == (int)UserRoles.User)
                 {
                     await SignInAsync(user, model.RememberMe);
                     return RedirectToLocal(returnUrl);

@@ -46,18 +46,18 @@
           <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="UserName" Type="nvarchar(max)" />
           <Property Name="PasswordHash" Type="nvarchar(max)" />
-          <Property Name="SecurityStamp" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Discriminator" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
           <Property Name="Role" Type="int" />
+          <Property Name="Discriminator" Type="nvarchar" MaxLength="128" Nullable="false" />
         </EntityType>
-        <EntityType Name="Feedback">
+        <EntityType Name="Feedbacks">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserId" Type="nvarchar" MaxLength="128" />
           <Property Name="MovieId" Type="int" />
-          <Property Name="Comment" Type="text" />
+          <Property Name="Comment" Type="varchar(max)" />
           <Property Name="Rating" Type="int" />
         </EntityType>
         <EntityType Name="Movies">
@@ -71,7 +71,7 @@
           <Property Name="Runtime" Type="int" />
           <Property Name="Director" Type="varchar" MaxLength="100" />
           <Property Name="Writer" Type="varchar" MaxLength="100" />
-          <Property Name="Actors" Type="text" />
+          <Property Name="Actors" Type="varchar(max)" />
           <Property Name="Language" Type="varchar" MaxLength="20" />
           <Property Name="Country" Type="varchar" MaxLength="100" />
           <Property Name="Awards" Type="varchar" MaxLength="255" />
@@ -91,29 +91,29 @@
         </EntityType>
         <Association Name="FK__Feedback__MovieI__4222D4EF">
           <End Role="Movies" Type="Self.Movies" Multiplicity="0..1" />
-          <End Role="Feedback" Type="Self.Feedback" Multiplicity="*" />
+          <End Role="Feedbacks" Type="Self.Feedbacks" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Movies">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Feedback">
+            <Dependent Role="Feedbacks">
               <PropertyRef Name="MovieId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Feedback__UserId__412EB0B6">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
-          <End Role="Feedback" Type="Self.Feedback" Multiplicity="*" />
+          <End Role="Feedbacks" Type="Self.Feedbacks" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AspNetUsers">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Feedback">
+            <Dependent Role="Feedbacks">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Orders__MovieId__6A30C649">
+        <Association Name="FK__Orders__MovieId__619B8048">
           <End Role="Movies" Type="Self.Movies" Multiplicity="0..1" />
           <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
           <ReferentialConstraint>
@@ -125,7 +125,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Orders__UserId__6B24EA82">
+        <Association Name="FK__Orders__UserId__628FA481">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
           <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
           <ReferentialConstraint>
@@ -199,22 +199,22 @@
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Feedback" EntityType="Self.Feedback" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Feedbacks" EntityType="Self.Feedbacks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Movies" EntityType="Self.Movies" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__Feedback__MovieI__4222D4EF" Association="Self.FK__Feedback__MovieI__4222D4EF">
             <End Role="Movies" EntitySet="Movies" />
-            <End Role="Feedback" EntitySet="Feedback" />
+            <End Role="Feedbacks" EntitySet="Feedbacks" />
           </AssociationSet>
           <AssociationSet Name="FK__Feedback__UserId__412EB0B6" Association="Self.FK__Feedback__UserId__412EB0B6">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="Feedback" EntitySet="Feedback" />
+            <End Role="Feedbacks" EntitySet="Feedbacks" />
           </AssociationSet>
-          <AssociationSet Name="FK__Orders__MovieId__6A30C649" Association="Self.FK__Orders__MovieId__6A30C649">
+          <AssociationSet Name="FK__Orders__MovieId__619B8048" Association="Self.FK__Orders__MovieId__619B8048">
             <End Role="Movies" EntitySet="Movies" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
-          <AssociationSet Name="FK__Orders__UserId__6B24EA82" Association="Self.FK__Orders__UserId__6B24EA82">
+          <AssociationSet Name="FK__Orders__UserId__628FA481" Association="Self.FK__Orders__UserId__628FA481">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
@@ -239,13 +239,50 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="moviesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="moviesEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AspNetRoles" EntityType="moviesModel.AspNetRole" />
+          <EntitySet Name="AspNetUserClaims" EntityType="moviesModel.AspNetUserClaim" />
+          <EntitySet Name="AspNetUserLogins" EntityType="moviesModel.AspNetUserLogin" />
+          <EntitySet Name="AspNetUsers" EntityType="moviesModel.AspNetUser" />
+          <EntitySet Name="Feedbacks" EntityType="moviesModel.Feedback" />
+          <EntitySet Name="Movies1" EntityType="moviesModel.Movie" />
+          <EntitySet Name="Orders" EntityType="moviesModel.Order" />
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id" Association="moviesModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="moviesModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogin" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Feedback__UserId__412EB0B6" Association="moviesModel.FK__Feedback__UserId__412EB0B6">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="Feedback" EntitySet="Feedbacks" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Feedback__MovieI__4222D4EF" Association="moviesModel.FK__Feedback__MovieI__4222D4EF">
+            <End Role="Movy" EntitySet="Movies1" />
+            <End Role="Feedback" EntitySet="Feedbacks" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="moviesModel.AspNetUserRoles">
+            <End Role="AspNetRole" EntitySet="AspNetRoles" />
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__UserId__628FA481" Association="moviesModel.FK__Orders__UserId__628FA481">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__MovieId__619B8048" Association="moviesModel.FK__Orders__MovieId__619B8048">
+            <End Role="Movy" EntitySet="Movies1" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="AspNetRole">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="moviesModel.AspNetUserRoles" FromRole="AspNetRole" ToRole="AspNetUser" />
         </EntityType>
         <EntityType Name="AspNetUserClaim">
           <Key>
@@ -254,8 +291,8 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="User_Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+          <Property Name="User_Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="moviesModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id" FromRole="AspNetUserClaim" ToRole="AspNetUser" />
         </EntityType>
         <EntityType Name="AspNetUserLogin">
           <Key>
@@ -263,96 +300,39 @@
             <PropertyRef Name="LoginProvider" />
             <PropertyRef Name="ProviderKey" />
           </Key>
-          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="moviesModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogin" ToRole="AspNetUser" />
         </EntityType>
         <EntityType Name="AspNetUser">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Discriminator" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
-          <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
-          <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Role" Type="Int32" />
+          <Property Name="Discriminator" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="moviesModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="moviesModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
           <NavigationProperty Name="Feedbacks" Relationship="moviesModel.FK__Feedback__UserId__412EB0B6" FromRole="AspNetUser" ToRole="Feedback" />
+          <NavigationProperty Name="AspNetRoles" Relationship="moviesModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
           <NavigationProperty Name="Orders" Relationship="moviesModel.FK__Orders__UserId__628FA481" FromRole="AspNetUser" ToRole="Order" />
-          </EntityType>
-        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id">
-          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaim" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="AspNetUserClaims">
-              <PropertyRef Name="User_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
-          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogin" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="AspNetUserLogins">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="AspNetUserRoles">
-          <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
-          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
-        </Association>
-        <EntityContainer Name="moviesEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
-          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
-          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
-          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
-          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
-          </AssociationSet>
-          <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
-            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-          </AssociationSet>
-          <EntitySet Name="Movies1" EntityType="moviesModel.Movie" />
-          <EntitySet Name="Feedbacks" EntityType="moviesModel.Feedback" />
-          <AssociationSet Name="FK__Feedback__UserId__412EB0B6" Association="moviesModel.FK__Feedback__UserId__412EB0B6">
-            <End Role="AspNetUser" EntitySet="AspNetUsers" />
-            <End Role="Feedback" EntitySet="Feedbacks" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Feedback__MovieI__4222D4EF" Association="moviesModel.FK__Feedback__MovieI__4222D4EF">
-            <End Role="Movie" EntitySet="Movies1" />
-            <End Role="Feedback" EntitySet="Feedbacks" />
-          </AssociationSet>
-          <EntitySet Name="Orders" EntityType="moviesModel.Order" />
-          <AssociationSet Name="FK__Orders__UserId__628FA481" Association="moviesModel.FK__Orders__UserId__628FA481">
-            <End Role="AspNetUser" EntitySet="AspNetUsers" />
-            <End Role="Order" EntitySet="Orders" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Orders__MovieId__619B8048" Association="moviesModel.FK__Orders__MovieId__619B8048">
-            <End Role="Movie" EntitySet="Movies1" />
-            <End Role="Order" EntitySet="Orders" />
-          </AssociationSet>
-          </EntityContainer>
+        </EntityType>
+        <EntityType Name="Feedback">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="MovieId" Type="Int32" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Rating" Type="Int32" />
+          <NavigationProperty Name="AspNetUser" Relationship="moviesModel.FK__Feedback__UserId__412EB0B6" FromRole="Feedback" ToRole="AspNetUser" />
+          <NavigationProperty Name="Movie" Relationship="moviesModel.FK__Feedback__MovieI__4222D4EF" FromRole="Feedback" ToRole="Movy" />
+        </EntityType>
         <EntityType Name="Movie">
           <Key>
             <PropertyRef Name="Id" />
@@ -372,21 +352,48 @@
           <Property Name="ImdbRating" Type="Decimal" Precision="2" Scale="1" />
           <Property Name="ImdbVotes" Type="Int32" />
           <Property Name="ImdbId" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Feedbacks" Relationship="moviesModel.FK__Feedback__MovieI__4222D4EF" FromRole="Movie" ToRole="Feedback" />
-          <NavigationProperty Name="Orders" Relationship="moviesModel.FK__Orders__MovieId__619B8048" FromRole="Movie" ToRole="Order" />
+          <NavigationProperty Name="Feedbacks" Relationship="moviesModel.FK__Feedback__MovieI__4222D4EF" FromRole="Movy" ToRole="Feedback" />
+          <NavigationProperty Name="Orders" Relationship="moviesModel.FK__Orders__MovieId__619B8048" FromRole="Movy" ToRole="Order" />
         </EntityType>
-        <EntityType Name="Feedback">
+        <EntityType Name="Order">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="MovieId" Type="Int32" />
-          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Rating" Type="Int32" />
-          <NavigationProperty Name="AspNetUser" Relationship="moviesModel.FK__Feedback__UserId__412EB0B6" FromRole="Feedback" ToRole="AspNetUser" />
-          <NavigationProperty Name="Movie" Relationship="moviesModel.FK__Feedback__MovieI__4222D4EF" FromRole="Feedback" ToRole="Movie" />
+          <Property Name="Returned" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="moviesModel.FK__Orders__UserId__628FA481" FromRole="Order" ToRole="AspNetUser" />
+          <NavigationProperty Name="Movie" Relationship="moviesModel.FK__Orders__MovieId__619B8048" FromRole="Order" ToRole="Movy" />
         </EntityType>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id">
+          <End Type="moviesModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="moviesModel.AspNetUserClaim" Role="AspNetUserClaim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaim">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Type="moviesModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="moviesModel.AspNetUserLogin" Role="AspNetUserLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogin">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Feedback__UserId__412EB0B6">
           <End Type="moviesModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
           <End Type="moviesModel.Feedback" Role="Feedback" Multiplicity="*" />
@@ -400,10 +407,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Feedback__MovieI__4222D4EF">
-          <End Type="moviesModel.Movie" Role="Movie" Multiplicity="0..1" />
+          <End Type="moviesModel.Movie" Role="Movy" Multiplicity="0..1" />
           <End Type="moviesModel.Feedback" Role="Feedback" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Movie">
+            <Principal Role="Movy">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Feedback">
@@ -411,17 +418,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Order">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
-          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="MovieId" Type="Int32" />
-          <Property Name="Returned" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="AspNetUser" Relationship="moviesModel.FK__Orders__UserId__628FA481" FromRole="Order" ToRole="AspNetUser" />
-          <NavigationProperty Name="Movie" Relationship="moviesModel.FK__Orders__MovieId__619B8048" FromRole="Order" ToRole="Movie" />
-        </EntityType>
+        <Association Name="AspNetUserRoles">
+          <End Type="moviesModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
+          <End Type="moviesModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+        </Association>
         <Association Name="FK__Orders__UserId__628FA481">
           <End Type="moviesModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
           <End Type="moviesModel.Order" Role="Order" Multiplicity="*" />
@@ -435,10 +435,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Orders__MovieId__619B8048">
-          <End Type="moviesModel.Movie" Role="Movie" Multiplicity="0..1" />
+          <End Type="moviesModel.Movie" Role="Movy" Multiplicity="0..1" />
           <End Type="moviesModel.Order" Role="Order" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Movie">
+            <Principal Role="Movy">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Order">
@@ -450,55 +450,58 @@
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="moviesModelStoreContainer" CdmEntityContainer="moviesEntities">
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="moviesModelStoreContainer" CdmEntityContainer="moviesEntities">
           <EntitySetMapping Name="AspNetRoles">
             <EntityTypeMapping TypeName="moviesModel.AspNetRole">
               <MappingFragment StoreEntitySet="AspNetRoles">
-                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetUserClaims">
             <EntityTypeMapping TypeName="moviesModel.AspNetUserClaim">
               <MappingFragment StoreEntitySet="AspNetUserClaims">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
-                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
                 <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetUserLogins">
             <EntityTypeMapping TypeName="moviesModel.AspNetUserLogin">
               <MappingFragment StoreEntitySet="AspNetUserLogins">
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
                 <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetUsers">
             <EntityTypeMapping TypeName="moviesModel.AspNetUser">
               <MappingFragment StoreEntitySet="AspNetUsers">
-                <ScalarProperty Name="Role" ColumnName="Role" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
-                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
                 <ScalarProperty Name="Discriminator" ColumnName="Discriminator" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="AspNetUserRoles" TypeName="moviesModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
-            <EndProperty Name="AspNetRoles">
-              <ScalarProperty Name="Id" ColumnName="RoleId" />
-            </EndProperty>
-            <EndProperty Name="AspNetUsers">
-              <ScalarProperty Name="Id" ColumnName="UserId" />
-            </EndProperty>
-          </AssociationSetMapping>
+          <EntitySetMapping Name="Feedbacks">
+            <EntityTypeMapping TypeName="moviesModel.Feedback">
+              <MappingFragment StoreEntitySet="Feedbacks">
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="MovieId" ColumnName="MovieId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Movies1">
             <EntityTypeMapping TypeName="moviesModel.Movie">
               <MappingFragment StoreEntitySet="Movies">
@@ -520,17 +523,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Feedbacks">
-            <EntityTypeMapping TypeName="moviesModel.Feedback">
-              <MappingFragment StoreEntitySet="Feedback">
-                <ScalarProperty Name="Rating" ColumnName="Rating" />
-                <ScalarProperty Name="Comment" ColumnName="Comment" />
-                <ScalarProperty Name="MovieId" ColumnName="MovieId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="moviesModel.Order">
               <MappingFragment StoreEntitySet="Orders">
@@ -541,9 +533,16 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="moviesModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetUser">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+            <EndProperty Name="AspNetRole">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
-      </Mapping>
-    </edmx:Mappings>
+</Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
   <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
@@ -557,7 +556,7 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
-        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </Options>

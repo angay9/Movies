@@ -44,7 +44,7 @@ namespace Movies.Controllers.Admin
         public async Task<ActionResult> Login(string username, string password) 
         {
             var user = await UserManager.FindAsync(username, password);
-            if (user != null && user.Role == (int)UserRoles.Admin)
+            if (user != null)// && user.Role == (int)UserRoles.Admin)
             {
                 AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
                 var identity = await UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);

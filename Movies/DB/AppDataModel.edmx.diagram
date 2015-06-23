@@ -4,19 +4,19 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="7c30df7b6f4a45f6a94045c34ae29a17" Name="Diagram1">
-        <EntityTypeShape EntityType="moviesModel.AspNetRole" Width="1.5" PointX="0.75" PointY="2.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="moviesModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="moviesModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="moviesModel.AspNetUser" Width="1.5" PointX="3" PointY="2" IsExpanded="true" />
-        <AssociationConnector Association="moviesModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id" ManuallyRouted="false" />
-        <AssociationConnector Association="moviesModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
-        <AssociationConnector Association="moviesModel.AspNetUserRoles" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="moviesModel.Movie" Width="1.5" PointX="0.75" PointY="5.75" />
-        <EntityTypeShape EntityType="moviesModel.Feedback" Width="1.5" PointX="8.25" PointY="0.875" />
+      <Diagram DiagramId="7c30df7b6f4a45f6a94045c34ae29a17" Name="Diagram1" ZoomLevel="98">
+        <EntityTypeShape EntityType="moviesModel.AspNetRole" Width="1.5" PointX="0.75" PointY="4.25" />
+        <EntityTypeShape EntityType="moviesModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="8.375" />
+        <EntityTypeShape EntityType="moviesModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="2.75" />
+        <EntityTypeShape EntityType="moviesModel.AspNetUser" Width="1.5" PointX="3" PointY="3.5" />
+        <EntityTypeShape EntityType="moviesModel.Feedback" Width="1.5" PointX="8.25" PointY="3.875" />
+        <EntityTypeShape EntityType="moviesModel.Movie" Width="1.5" PointX="4.75" PointY="11.875" />
+        <EntityTypeShape EntityType="moviesModel.Order" Width="1.5" PointX="0.75" PointY="0.75" />
+        <AssociationConnector Association="moviesModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id" />
+        <AssociationConnector Association="moviesModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="moviesModel.FK__Feedback__UserId__412EB0B6" />
         <AssociationConnector Association="moviesModel.FK__Feedback__MovieI__4222D4EF" />
-        <EntityTypeShape EntityType="moviesModel.Order" Width="1.5" PointX="5.25" PointY="6.875" />
+        <AssociationConnector Association="moviesModel.AspNetUserRoles" />
         <AssociationConnector Association="moviesModel.FK__Orders__UserId__628FA481" />
         <AssociationConnector Association="moviesModel.FK__Orders__MovieId__619B8048" />
       </Diagram>

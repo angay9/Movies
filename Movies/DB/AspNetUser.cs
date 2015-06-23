@@ -18,8 +18,8 @@ namespace Movies.DB
         {
             this.AspNetUserClaims = new HashSet<AspNetUserClaim>();
             this.AspNetUserLogins = new HashSet<AspNetUserLogin>();
-            this.AspNetRoles = new HashSet<AspNetRole>();
             this.Feedbacks = new HashSet<Feedback>();
+            this.AspNetRoles = new HashSet<AspNetRole>();
             this.Orders = new HashSet<Order>();
         }
     
@@ -27,13 +27,13 @@ namespace Movies.DB
         public string UserName { get; set; }
         public string PasswordHash { get; set; }
         public string SecurityStamp { get; set; }
-        public string Discriminator { get; set; }
         public Nullable<int> Role { get; set; }
+        public string Discriminator { get; set; }
     
         public virtual ICollection<AspNetUserClaim> AspNetUserClaims { get; set; }
         public virtual ICollection<AspNetUserLogin> AspNetUserLogins { get; set; }
-        public virtual ICollection<AspNetRole> AspNetRoles { get; set; }
         public virtual ICollection<Feedback> Feedbacks { get; set; }
+        public virtual ICollection<AspNetRole> AspNetRoles { get; set; }
         public virtual ICollection<Order> Orders { get; set; }
     }
 }
